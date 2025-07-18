@@ -239,7 +239,7 @@ export const Header = ({ user, cartItemCount, searchQuery, setSearchQuery }) => 
 export const Homepage = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const heroImages = [
-    "https://images.unsplash.com/photo-1585144860106-998ca0f2922a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2Mzl8MHwxfHNlYXJjaHwxfHxlY29tbWVyY2V8ZW58MHx8fGJsYWNrX2FuZF93aGl0ZXwxNzUyODE5ODYxfDA&ixlib=rb-4.1.0&q=85",
+    "https://images.unsplash.com/photo-1582556544229-40a11e954e71?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2MzR8MHwxfHNlYXJjaHwzfHxkaXNjb3VudHxlbnwwfHx8YmxhY2tfYW5kX3doaXRlfDE3NTI4MjgwMTJ8MA&ixlib=rb-4.1.0&q=85",
     "https://images.unsplash.com/photo-1557821552-17105176677c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2Mzl8MHwxfHNlYXJjaHwxfHxzaG9wcGluZ3xlbnwwfHx8YmxhY2tfYW5kX3doaXRlfDE3NTI4MTk4Njd8MA&ixlib=rb-4.1.0&q=85",
     "https://images.pexels.com/photos/953864/pexels-photo-953864.jpeg"
   ];
