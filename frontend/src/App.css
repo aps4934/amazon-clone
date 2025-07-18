@@ -1,38 +1,264 @@
+/* Amazon Clone Styles */
 .App {
-    text-align: center;
+  font-family: 'Amazon Ember', Arial, sans-serif;
 }
 
-.App-logo {
-    height: 40vmin;
-    pointer-events: none;
+/* Custom line clamp utility */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-        animation: App-logo-spin infinite 20s linear;
-    }
+/* Smooth transitions */
+.transition {
+  transition: all 0.3s ease;
 }
 
-.App-header {
-    background-color: #0f0f10;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
 }
 
-.App-link {
-    color: #61dafb;
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
 }
 
-@keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Amazon-style buttons */
+.amazon-btn-primary {
+  background-color: #ff9900;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.amazon-btn-primary:hover {
+  background-color: #e67e22;
+}
+
+.amazon-btn-secondary {
+  background-color: #ffd814;
+  color: #0f1111;
+  border: 1px solid #fcd200;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.amazon-btn-secondary:hover {
+  background-color: #f7ca00;
+}
+
+/* Star ratings */
+.star-rating {
+  color: #ffa41c;
+}
+
+.star-rating .empty {
+  color: #ddd;
+}
+
+/* Product card hover effects */
+.product-card {
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.product-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Loading animations */
+.loading-spinner {
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #ff9900;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Custom focus styles */
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: #ff9900;
+  box-shadow: 0 0 0 2px rgba(255, 153, 0, 0.2);
+}
+
+/* Responsive typography */
+@media (max-width: 768px) {
+  .text-4xl {
+    font-size: 2rem;
+  }
+  
+  .text-3xl {
+    font-size: 1.5rem;
+  }
+  
+  .text-2xl {
+    font-size: 1.25rem;
+  }
+}
+
+/* Amazon-style navigation */
+.amazon-nav {
+  background: linear-gradient(to bottom, #232f3e, #131a22);
+}
+
+.amazon-nav-item {
+  color: white;
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 2px;
+  transition: background-color 0.2s;
+}
+
+.amazon-nav-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+/* Search bar styling */
+.amazon-search {
+  box-shadow: 0 2px 5px rgba(213, 217, 217, 0.5);
+}
+
+.amazon-search input {
+  border: none;
+  outline: none;
+  font-size: 16px;
+}
+
+.amazon-search button {
+  background-color: #febd69;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.amazon-search button:hover {
+  background-color: #f3a847;
+}
+
+/* Price styling */
+.price-display {
+  font-family: 'Amazon Ember', Arial, sans-serif;
+  font-weight: 400;
+}
+
+.price-symbol {
+  font-size: 0.8em;
+  vertical-align: top;
+}
+
+.price-fraction {
+  font-size: 0.8em;
+  vertical-align: top;
+}
+
+/* Deal badges */
+.deal-badge {
+  background-color: #b12704;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 2px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* Footer styles */
+.amazon-footer {
+  background-color: #232f3e;
+  color: white;
+}
+
+.amazon-footer-top {
+  background-color: #37475a;
+  padding: 40px 0;
+}
+
+.amazon-footer-middle {
+  background-color: #232f3e;
+  padding: 40px 0;
+}
+
+.amazon-footer-bottom {
+  background-color: #131a22;
+  padding: 20px 0;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 1024px) {
+  .grid-cols-4 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .grid-cols-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .grid-cols-2 {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+/* Accessibility improvements */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Focus indicators */
+button:focus,
+a:focus,
+input:focus,
+select:focus {
+  outline: 2px solid #ff9900;
+  outline-offset: 2px;
+}
+
+/* Animation for page transitions */
+.page-transition {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
