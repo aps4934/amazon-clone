@@ -1,50 +1,94 @@
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from "axios";
+import { 
+  Header, 
+  Homepage, 
+  ProductListing, 
+  ProductDetails, 
+  Cart, 
+  Checkout, 
+  SignIn, 
+  Account,
+  SearchResults 
+} from "./components";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
+function App() {
+  const [cartItems, setCartItems] = useState([]);
+  const [user, setUser] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
-const Home = () => {
-  const helloWorldApi = async () => {
-    try {
-      const response = await axios.get(`${API}/`);
-      console.log(response.data.message);
-    } catch (e) {
-      console.error(e, `errored out requesting / api`);
+  // Load cart from localStorage on mount
+  useEffect(() => {
+    const savedCart = localStorage.getItem('amazonCart');
+    if (savedCart) {
+      setCartItems(JSON.parse(savedCart));
+    }
+  }, []);
+
+  // Save cart to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('amazonCart', JSON.stringify(cartItems));
+  }, [cartItems]);
+
+  const addToCart = (product) => {
+    const existingItem = cartItems.find(item => item.id === product.id);
+    if (existingItem) {
+      setCartItems(cartItems.map(item =>
+        item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+      ));
+    } else {
+      setCartItems([...cartItems, { ...product, quantity: 1 }]);
     }
   };
 
-  useEffect(() => {
-    helloWorldApi();
-  }, []);
+  const removeFromCart = (productId) => {
+    setCartItems(cartItems.filter(item => item.id !== productId));
+  };
 
-  return (
-    <div>
-      <header className="App-header">
-        <a
-          className="App-link"
-          href="https://emergent.sh"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="https://avatars.githubusercontent.com/in/1201222?s=120&u=2686cf91179bbafbc7a71bfbc43004cf9ae1acea&v=4" />
-        </a>
-        <p className="mt-5">Building something incredible ~!</p>
-      </header>
-    </div>
-  );
-};
+  const updateQuantity = (productId, newQuantity) => {
+    if (newQuantity <= 0) {
+      removeFromCart(productId);
+    } else {
+      setCartItems(cartItems.map(item =>
+        item.id === productId ? { ...item, quantity: newQuantity } : item
+      ));
+    }
+  };
 
-function App() {
+  const getCartTotal = () => {
+    return cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+  };
+
+  const getCartItemCount = () => {
+    return cartItems.reduce((total, item) => total + item.quantity, 0);
+  };
+
   return (
     <div className="App">
       <BrowserRouter>
+        <Header 
+          user={user} 
+          cartItemCount={getCartItemCount()} 
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+        />
         <Routes>
-          <Route path="/" element={<Home />}>
-            <Route index element={<Home />} />
-          </Route>
+          <Route path="/" element={<Homepage />} />
+          <Route path="/category/:category" element={<ProductListing />} />
+          <Route path="/product/:id" element={<ProductDetails addToCart={addToCart} />} />
+          <Route path="/search" element={<SearchResults searchQuery={searchQuery} />} />
+          <Route path="/cart" element={
+            <Cart 
+              cartItems={cartItems} 
+              removeFromCart={removeFromCart} 
+              updateQuantity={updateQuantity} 
+              getCartTotal={getCartTotal}
+            />
+          } />
+          <Route path="/checkout" element={<Checkout cartItems={cartItems} getCartTotal={getCartTotal} />} />
+          <Route path="/signin" element={<SignIn setUser={setUser} />} />
+          <Route path="/account" element={<Account user={user} />} />
         </Routes>
       </BrowserRouter>
     </div>
